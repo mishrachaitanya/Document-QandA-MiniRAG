@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: ./backend
+    container_name: fastapi-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - FAISS_PATH=/data/faiss_index
+    volumes:
+      - faiss_data:/data
+
+  frontend:
+    build: ./frontend
+    container_name: vue-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  faiss_data:
